@@ -21,8 +21,7 @@ import fooocus_version
 from build_launcher import build_launcher
 from modules.launch_util import is_installed, run, python, run_pip, requirements_met
 from modules.model_loader import load_file_from_url
-from modules.config import path_checkpoints, path_loras, path_vae_approx, path_fooocus_expansion, \
-    checkpoint_downloads, path_embeddings, embeddings_downloads, lora_downloads
+from modules.settings import settings
 
 
 REINSTALL_ALL = False
@@ -71,18 +70,18 @@ vae_approx_filenames = [
 
 
 def download_models():
-    for file_name, url in checkpoint_downloads.items():
-        load_file_from_url(url=url, model_dir=path_checkpoints, file_name=file_name)
-    for file_name, url in embeddings_downloads.items():
-        load_file_from_url(url=url, model_dir=path_embeddings, file_name=file_name)
-    for file_name, url in lora_downloads.items():
-        load_file_from_url(url=url, model_dir=path_loras, file_name=file_name)
+    for file_name, url in settings.checkpoint_downloads.items():
+        load_file_from_url(url=url, model_dir=settings.path_checkpoints, file_name=file_name)
+    for file_name, url in settings.embeddings_downloads.items():
+        load_file_from_url(url=url, model_dir=settings.path_embeddings, file_name=file_name)
+    for file_name, url in settings.lora_downloads.items():
+        load_file_from_url(url=url, model_dir=settings.path_loras, file_name=file_name)
     for file_name, url in vae_approx_filenames:
-        load_file_from_url(url=url, model_dir=path_vae_approx, file_name=file_name)
+        load_file_from_url(url=url, model_dir=settings.path_vae_approx, file_name=file_name)
 
     load_file_from_url(
         url='https://huggingface.co/lllyasviel/misc/resolve/main/fooocus_expansion.bin',
-        model_dir=path_fooocus_expansion,
+        model_dir=settings.path_fooocus_expansion,
         file_name='pytorch_model.bin'
     )
 
